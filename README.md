@@ -1,3 +1,3 @@
-# regsearch.github.io
+# Hiking Trails Search
 
-Tool to search google when researching various topics
+Tool to find nearby hiking trails and get more information on them.
