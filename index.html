@@ -51,7 +51,7 @@
 		<div id="search_page_container">
 			<main>
 				<form id="search_form">
-					<input type="text" placeholder="Parks near location..." id="search_text">
+					<input type="text" placeholder="Parks near location..." id="search_text" value="Philadelphia">
 					<input type="submit" value="Search">
 				</form>
 				<div id="search_results">
@@ -60,8 +60,6 @@
 				</div>
 			</main>
 			
-			<script>function receiveLocation(json){$("#search_text").val(json.city + ", " + json.regionName)}</script>
-			<script src="https://ip-api.com/json/?callback=receiveLocation"></script>
 			<script src="searchtrails.js"></script>
 		</div>
 		
