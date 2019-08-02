@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Nearby Hiking Trail Finder</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ&sensor=false"></script>
+	</head>
+	<body>
+		<main>
+			<form id="search_form">
+				<input type="text" placeholder="Parks near location..." id="search_text">
+				<input type="submit" value="Search">
+			</form>
+			<div id="search_results">
+				<ul>
+				</ul>
+			</div>
+		</main>
+		
+		<script>function receiveLocation(json){$("#search_text").val(json.city + ", " + json.regionName)}</script>
+		<script src="http://ip-api.com/json/?callback=receiveLocation"></script>
+		<script src="searchtrails.js"></script>
+	</body>
+</html>
