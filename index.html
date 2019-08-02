@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Nearby Hiking Trail Finder</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ&sensor=false"></script>
+	</head>
+	<body>
+		<main>
+			<form id="search_form">
+				<input type="text" placeholder="Parks near location..." id="search_text">
+				<input type="submit" value="Search">
+			</form>
+			<div id="search_results">
+				<ul>
+				</ul>
+			</div>
+		</main>
+		
+		<script>function receiveLocation(json){$("#search_text").val(json.city + ", " + json.regionName)}</script>
+		<script src="http://ip-api.com/json/?callback=receiveLocation"></script>
+		<script>			
+			$(function() {
+				if($("#search_text").val())
+					showSearchResults($("#search_text").val());
+			});
+			// handle form submission & display results
+			$("#search_form").submit(function(e){
+				e.preventDefault();
+				console.log('aa');
+				showSearchResults($("#search_text").val());
+			});
+			
+			function formatQueryParameters(params) {
+				const queryItems = Object.keys(params)
+					.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+				return queryItems.join('&');
+			}
+			
+			function queryToLatLong(query, cb) {
+
+				var geocoder = new google.maps.Geocoder();
+
+				geocoder.geocode( { 'address': query}, function(results, status) {
+
+					if (status == google.maps.GeocoderStatus.OK) {
+						console.log("aasd")
+						window.searchLat = results[0].geometry.location.lat();
+						window.searchLon = results[0].geometry.location.lng();
+
+						cb(window.searchLat, window.searchLon);
+					}
+				});
+			}
+			
+			function getNearbyTrails(lat, lon, cb) {
+				let queryParams = {
+					lat: lat,
+					lon: lon,
+					maxDistance: 100,
+					maxResults: 50,
+					"sort": "distance",
+					key: "200536993-480f088125ad09c34aa10be8f6283e9c"
+				}
+				let formattedParams = formatQueryParameters(queryParams);
+				fetch("https://www.hikingproject.com/data/get-trails?"+formattedParams)
+					.then(function(response){
+						return response.json();
+					})
+					.then(function(json){
+						cb(json);
+					});
+			}
+			
+			// distance between lat/lons in miles
+			function getDistanceBetweenLatLong(fromLat,fromLng,toLat,toLng) {
+				let miles = google.maps.geometry.spherical.computeDistanceBetween(
+					new google.maps.LatLng(fromLat, fromLng), 
+					new google.maps.LatLng(toLat, toLng)
+				) / 1609.34; // convert meters -> miles
+				
+				return parseFloat(miles.toFixed(1));
+			}
+			
+			function trailsJSONToHTML(json) {
+				let trailsHTML = json["trails"].map(function(trail){
+					// encode park JSON info to base64 to be decoded when passed in li event callback
+					return (
+					`<li data-json="${btoa(JSON.stringify(json))}">
+						<span class="name">${trail.name}</span>
+						
+						${getDistanceBetweenLatLong(window.searchLat,window.searchLon,trail.latitude,trail.longitude)} mi
+						/
+						${trail.location.split(",")[0]}
+					</li>`);
+				});
+				return "\n\t"+trailsHTML.join("\n\t")+"\n"
+			}
+			
+			function showSearchResults(query) {
+				console.log('1')
+				queryToLatLong(query, function(lat, lon){
+					console.log('2')
+					getNearbyTrails(lat, lon, function(json) {
+						console.log('3')
+						let resultsHTML = trailsJSONToHTML(json);
+						console.log(json)
+						$("#search_results ul").html(resultsHTML);
+						console.log('4')
+					});
+				});
+			}
+		</script>
+	</body>
+</html>

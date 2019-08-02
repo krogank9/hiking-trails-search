@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Nearby Hiking Trail Finder</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ&sensor=false"></script>
+		
+		<style type="text/css">
+			html {
+				width: 100%;
+				height: 100%;
+			}
+			html, body {
+				width: 100%;
+				min-height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			
+			#map {
+				flex:1;
+				z-index: -999;
+				position: absolute;
+				min-height: 100%;
+				left: 0;
+				top: 0;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				
+			}
+			#overlay {
+				background: rgba(0,0,0,0.45);
+				color: white;
+				text-align: center;
+				left: 0;
+				top: 0;
+				width: 100%;
+				min-height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map"></div>
+		<div id="overlay">
+			<h1><a class="title" href="#"></a></h1>
+			<p class="location"></p>
+			<p>Length: <span class="length">0</span> miles</p>
+			<p>Ascent: <span class="ascent">0</span>, Descent: <span class="descent">0</span></p>
+			<p>Difficulty: <span class="difficulty"></span></p>
+			<div class="rating">
+					<img src="img/star.svg" style="width: 50px; height: auto;">
+					<img src="img/star.svg" style="width: 50px; height: auto;">
+					<img src="img/star.svg" style="width: 50px; height: auto;">
+					<img src="img/star.svg" style="width: 50px; height: auto;">
+					<img src="img/half star.svg" style="width: 50px; height: auto;">
+			</div>
+			<p><span class="description"></span> <a class="read-more" href="#">Read More...</a></p>
+			<div>
+				<img class="preview" src="" alt="Park preview image">
+				<div id="pano" style="width: 400px; height: 300px; display: inline-block;"></div>
+			</div>
+		</div>
+		
+		<script src="test.js"></script>
+		<script>
+			var map;
+
+			function initMap() {
+
+			map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 0, lng: 0},
+					zoom: 15,
+					zoomControl: true,
+					disableDefaultUI: true,
+					zoomControl: false,
+					zoomControlOptions: {
+						position: google.maps.ControlPosition.LEFT_CENTER
+					},
+					mapTypeId: 'hybrid'
+				});
+			}
+			initMap();
+			
+			function displayTrail(json) {
+				$(".title").html(json.name);
+				$(".title").attr("href",json.url);
+				
+				$(".location").html(json.location);
+				
+				$(".length").html(json.length);
+				
+				$(".ascent").html(json.ascent+"'");
+				$(".descent").html(json.descent+"'");
+				
+				let difficulty_map = {
+					"green":"Easy <img class='difficulty-img' src='img/green.svg'>",
+					"greenBlue":"Easy/Intermediate <img class='difficulty-img' src='img/greenBlue.svg'>",
+					"blue":"Intermediate <img class='difficulty-img' src='img/blue.svg'>",
+					"blueBlack":"Intermediate/Difficult <img class='difficulty-img' src='img/blueBlack.svg'>",
+					"black":"Difficult <img class='difficulty-img' src='img/black.svg'>",
+					"dblack":"Extremely Difficult <img class='difficulty-img' src='img/dblack.svg'>",
+				};
+				$(".difficulty").html(difficulty_map[json.difficulty]||"Unknown");
+				
+				let num_stars = Math.floor(parseFloat(json.stars)||0);
+				let add_half = (parseFloat(json.stars) - num_stars) >= 0.5;
+				let stars_arr = Array(num_stars).fill("<img class='star' src='img/star.svg'>").concat(add_half?["<img class='star' src='img/half star.svg'>"]:[]);
+				$(".rating").html(stars_arr.join(''));
+				
+				$(".description").html(json.summary);
+				$(".read-more").attr("href",json.url);
+				
+				$(".preview").attr("src",json.imgSmallMed);
+				
+				setPanoramaLocation(json.latitude, json.longitude);
+				window.map.setCenter({lat:json.latitude, lng:json.longitude});
+			}
+			
+			let testJSON = {
+				"id": 7066091,
+				"name": "Ridley Creek SP: Yellow-White-Yellow Loop", //x
+				"type": "Featured Hike",
+				"summary": "A nice, rolling singletrack loop in southeastern PA.", //x
+				"difficulty": "blue", //
+				"stars": 3.5, //x
+				"starVotes": 4,
+				"location": "Lima, Pennsylvania", //x
+				"url": "https:\/\/www.hikingproject.com\/trail\/7066091\/ridley-creek-sp-yellow-white-yellow-loop", //x
+				"imgSqSmall": "https:\/\/cdn-files.apstatic.com\/hike\/7054689_sqsmall_1555707359.jpg",
+				"imgSmall": "https:\/\/cdn-files.apstatic.com\/hike\/7054689_small_1555707359.jpg",
+				"imgSmallMed": "https:\/\/cdn-files.apstatic.com\/hike\/7054689_smallMed_1555707359.jpg",
+				"imgMedium": "https:\/\/cdn-files.apstatic.com\/hike\/7054689_medium_1555707359.jpg", //
+				"length": 5.5, //x
+				"ascent": 589, //x
+				"descent": -590, //x
+				"high": 407,
+				"low": 212,
+				"longitude": -75.4524,
+				"latitude": 39.9512,
+				"conditionStatus": "Unknown",
+				"conditionDetails": null,
+				"conditionDate": "1970-01-01 00:00:00"
+			};
+			
+			displayTrail(testJSON);
+		</script>
+		
+		<script>
+			function expandMapHeight() {
+				var totalHeight = 0;
+
+				$("#overlay").children().each(function(){
+					totalHeight = totalHeight + $(this).outerHeight(true);
+				});
+				
+				totalHeight = Math.max(totalHeight, $(window).height());
+				
+				//$("body").minHeight($("body").outerHeight());
+				//$("#map").height(totalHeight);
+				//$("#overlay").height(totalHeight);
+				$("#map").css('height',totalHeight+"px");
+				$("#overlay").css('height',totalHeight+"px");
+				//$("#overlay").minHeight($("body").outerHeight());
+				//$("#overlay").css('min-height', $("body").outerHeight()+"px");
+			}
+			$(function() {
+				expandMapHeight();
+				$(window).resize(function(){
+					expandMapHeight();
+				});
+			});
+		</script>
+	</body>
+</html>
