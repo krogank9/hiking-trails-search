@@ -5,7 +5,6 @@ $(function() {
 // handle form submission & display results
 $("#search_form").submit(function(e){
 	e.preventDefault();
-	console.log('aa');
 	showSearchResults($("#search_text").val());
 });
 
@@ -22,11 +21,14 @@ function queryToLatLong(query, cb) {
 	geocoder.geocode( { 'address': query}, function(results, status) {
 
 		if (status == google.maps.GeocoderStatus.OK) {
-			console.log("aasd")
 			window.searchLat = results[0].geometry.location.lat();
 			window.searchLon = results[0].geometry.location.lng();
 
 			cb(window.searchLat, window.searchLon);
+		}
+		else {
+			cb(0,0,true);
+			console.log("Error querying lat/long.");
 		}
 	});
 }
@@ -80,15 +82,21 @@ function trailsJSONToHTML(json) {
 }
 
 function showSearchResults(query) {
-	console.log('1')
-	queryToLatLong(query, function(lat, lon){
-		console.log('2')
+	console.log("Querying google for lat/long...");
+	queryToLatLong(query, function(lat, lon, error){
+		if(error) {
+			$("#search_results ul").html("No trails found! Please try another search query.");
+			return;
+		}
+		console.log("Querying hiking API for nearby trails...");
 		getNearbyTrails(lat, lon, function(json) {
-			console.log('3')
+			if(json["trails"].length == 0) {
+				$("#search_results ul").html("No trails found! Please try another search query.");
+				return;
+			}
 			let resultsHTML = trailsJSONToHTML(json);
 			console.log(json)
 			$("#search_results ul").html(resultsHTML);
-			console.log('4')
 		});
 	});
 }

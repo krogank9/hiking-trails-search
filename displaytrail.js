@@ -1,5 +1,3 @@
-console.log('xxx')
-
 function displayTrail(json) {
 	$(".title").html(json.name);
 	$(".title").attr("href",json.url);
