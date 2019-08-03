@@ -33,6 +33,14 @@ function queryToLatLong(query, cb) {
 	});
 }
 
+function sortTrailsByLatLong(trails, lat, lon) {
+	return trails.sort(function(a,b){
+		let distA = getDistanceBetweenLatLong(lat,lon, a.latitude,a.longitude);
+		let distB = getDistanceBetweenLatLong(lat,lon, b.latitude,b.longitude);
+		return distA - distB;
+	});
+}
+
 function getNearbyTrails(lat, lon, cb) {
 	let queryParams = {
 		lat: lat,
@@ -48,6 +56,7 @@ function getNearbyTrails(lat, lon, cb) {
 			return response.json();
 		})
 		.then(function(json){
+			json.trails = sortTrailsByLatLong(json.trails, lat, lon);
 			cb(json);
 		});
 }
