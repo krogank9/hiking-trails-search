@@ -68,7 +68,7 @@ function trailsJSONToHTML(json) {
 	let trailsHTML = json["trails"].map(function(trail){
 		// encode park JSON info to base64 to be decoded when passed in li event callback
 		return (
-		`<li data-parkjson="${btoa(JSON.stringify(trail))}">
+		`<li data-parkjson="${encodeURIComponent(escape(JSON.stringify(trail)))}">
 			<span class="name">${trail.name}</span>
 			
 			${getDistanceBetweenLatLong(window.searchLat,window.searchLon,trail.latitude,trail.longitude)} mi
@@ -97,7 +97,7 @@ function showSearchResults(query) {
 $("#search_results").on('click', "li", function(e) {
 	console.log('a');
 	let b64 = $(this).data('parkjson');
-	let json = JSON.parse(atob(b64));
+	let json = JSON.parse(decodeURIComponent(unescape(b64)));
 	console.log("JSON:");
 	console.log(json);
 	displayTrail(json);
