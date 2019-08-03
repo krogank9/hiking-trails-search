@@ -5,6 +5,11 @@ function updateShowPages() {
 	$("#trail_page_container").css("display",window.showSearch?"none":"block");
 }
 
+$("#back_to_search_button").click(function(){
+	window.showSearch = true;
+	updateShowPages();
+});
+
 $(function() {
 	updateShowPages();
 });
