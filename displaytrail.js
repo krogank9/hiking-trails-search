@@ -4,6 +4,8 @@ function displayTrail(json) {
 	
 	$(".location").html(json.location);
 	
+	$(".distFromUser").html(json.distFromUser + " miles");
+	
 	$(".length").html(json.length);
 	
 	$(".ascent").html(json.ascent+"'");
@@ -21,17 +23,24 @@ function displayTrail(json) {
 	
 	let num_stars = Math.floor(parseFloat(json.stars)||0);
 	let add_half = (parseFloat(json.stars) - num_stars) >= 0.5;
-	let stars_arr = Array(num_stars).fill("<img class='star' src='img/star.svg'>").concat(add_half?["<img class='star' src='img/half star.svg'>"]:[]);
+	let num_empty = 5 - num_stars - (add_half?1:0);
+	let stars_arr = Array(num_stars).fill("<img class='star' src='img/star.svg'>")
+					.concat(add_half?["<img class='star' src='img/half star.svg'>"]:[])
+					.concat(Array(num_empty).fill("<img class='star' src='img/empty star.svg'>"));
 	$(".rating").html(stars_arr.join(''));
 	
 	$(".description").html(json.summary);
 	$(".read-more").attr("href",json.url);
 	
-	$(".preview").attr("src",json.imgSmallMed);
-	$(".preview").css("display",json.imgSmallMed?"inline":"none");
+	$(".preview").attr("src",json.imgMedium);
+	$(".preview").css("display",json.imgMedium?"inline":"none");
+	
+	$(".maps-link").attr("href","https://www.google.com/maps/search/?api=1&query="+json.latitude+","+json.longitude);
+	$(".maps-link").html("Click to view hike in Google Maps ("+json.latitude+", "+json.longitude+")");
 	
 	setPanoramaLocation(json.latitude, json.longitude);
-	window.map.setCenter({lat:json.latitude, lng:json.longitude});
+	
+	setMapCenter(json.latitude, json.longitude);
 }
 
 /*

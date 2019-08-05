@@ -10,11 +10,9 @@ console.log('aaa')
  var parkLng = 0;
  
 var geocoder = new google.maps.Geocoder();
-console.log('iii'):
 
 geocoder.geocode( { 'address': parkAddress}, function(results, status) {
 	
-	console.log('iii'):
 
   if (status == google.maps.GeocoderStatus.OK) {
     window.parkLat = results[0].geometry.location.lat();

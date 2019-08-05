@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ&sensor=false"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ"></script>
 		
 		<style type="text/css">
 			html {
@@ -33,7 +33,7 @@
 				
 			}
 			#overlay {
-				background: rgba(0,0,0,0.45);
+				background: rgba(0,0,0,0.70);
 				color: white;
 				text-align: center;
 				left: 0;
@@ -71,9 +71,11 @@
 				<button id="back_to_search_button">&lt;-- Back to search results</button>
 				<h1><a class="title" href="#" target="_blank"></a></h1>
 				<p class="location"></p>
+				<p>Distance from you: <span class="distFromUser"></span></p>
 				<p>Length: <span class="length">0</span> miles</p>
 				<p>Ascent: <span class="ascent">0</span>, Descent: <span class="descent">0</span></p>
 				<p>Difficulty: <span class="difficulty"></span></p>
+				<p>User rating from hikingproject.com:</p>
 				<div class="rating">
 						<img src="img/star.svg" style="width: 50px; height: auto;">
 						<img src="img/star.svg" style="width: 50px; height: auto;">
@@ -81,11 +83,12 @@
 						<img src="img/star.svg" style="width: 50px; height: auto;">
 						<img src="img/half star.svg" style="width: 50px; height: auto;">
 				</div>
-				<p><span class="description"></span> <a class="read-more" href="#" target="_blank">Read More...</a></p>
+				<p><span class="description"></span> <br> <a class="read-more" href="#" target="_blank">Read More on hikingproject.com...</a></p>
 				<div>
-					<img class="preview" src="" alt="Park preview image">
+					<img class="preview" src="" alt="Park preview image" style="width: 400px; height: 300px; object-fit: cover;">
 					<div id="pano" style="width: 400px; height: 300px; display: inline-block;"></div>
 				</div>
+				<div><a class="maps-link" href="#" target="_blank">Click to view hike in Google Maps</a></div></div>
 			</div>
 		</div>
 		

@@ -77,12 +77,15 @@ function JSONFromB64(b64) {
 
 function trailsJSONToHTML(json) {
 	let trailsHTML = json["trails"].map(function(trail){
+		let distFromUser = getDistanceBetweenLatLong(window.searchLat,window.searchLon,trail.latitude,trail.longitude)
+		trail["distFromUser"] = distFromUser; // Put in JSON to display on results page
+		
 		// encode park JSON info to base64 to be decoded when passed in li event callback
 		return (
 		`<li data-parkjson="${encodeURIComponent(escape(JSON.stringify(trail)))}">
 			<span class="name">${trail.name}</span>
 			
-			${getDistanceBetweenLatLong(window.searchLat,window.searchLon,trail.latitude,trail.longitude)} mi
+			${distFromUser} mi
 			/
 			${trail.location.split(",")[0]}
 		</li>`);

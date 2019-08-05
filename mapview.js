@@ -1,4 +1,11 @@
 var map;
+var inited_map = false;
+
+function setMapCenter(lat, lon) {
+	if(!inited_map)
+		initMap();
+	map.setCenter({"lat":lat, "lng":lon});
+}
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -12,6 +19,5 @@ function initMap() {
 		},
 		mapTypeId: 'hybrid'
 	});
+	inited_map = true;
 }
-initMap();
-
