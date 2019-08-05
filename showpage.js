@@ -1,15 +1,21 @@
-window.showSearch = true;
+window.searchActive = true;
 
-function updateShowPages() {
-	$("#search_page_container").css("display",window.showSearch?"block":"none");
-	$("#trail_page_container").css("display",window.showSearch?"none":"block");
+function updateActiveView() {
+	if(window.searchActive) {
+		$("#search_view_container").addClass("active_view");
+		$("#trail_view_container").removeClass("active_view");
+	}
+	else {
+		$("#search_view_container").removeClass("active_view");
+		$("#trail_view_container").addClass("active_view");
+	}
 }
 
 $("#back_to_search_button").click(function(){
-	window.showSearch = true;
-	updateShowPages();
+	window.searchActive = true;
+	updateActiveView();
 });
 
 $(function() {
-	updateShowPages();
+	updateActiveView();
 });
