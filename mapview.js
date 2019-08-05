@@ -9,7 +9,7 @@ function setMapCenter(lat, lon) {
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: 0, lng: 0},
+		center: {lat: 39.9512, lng: -75.4524},
 		zoom: 15,
 		zoomControl: true,
 		disableDefaultUI: true,
@@ -17,7 +17,11 @@ function initMap() {
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.LEFT_CENTER
 		},
-		mapTypeId: 'hybrid'
+		mapTypeId: 'satellite'
 	});
 	inited_map = true;
 }
+
+$(function() {
+	initMap();
+});

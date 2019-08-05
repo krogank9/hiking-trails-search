@@ -2,6 +2,10 @@ h1 {
 	margin-top: 0;
 	padding-top: 10px;
 }
+h2 {
+	margin-top: 0;
+	padding-top: 8px;
+}
 
 a {
 	color: white;
@@ -43,7 +47,13 @@ a {
   ##Screen = B/w 1025px to 1280px
 */
 
-@media (min-width: 1025px) and (max-width: 1280px) {
+@media (min-width: 1025px) {
+	#back_to_search_button {
+		display: none;
+	}
+	.search_app_info {
+		display: none;
+	}
 }
 
 /* 
@@ -59,6 +69,18 @@ a {
 		flex: 1;
 		display: block;
 	}
+}
+
+#trail_view_container.view .app_info {
+	display: block;
+}#trail_view_container.view .trail_info {
+	display: none;
+}
+#trail_view_container.active_view .app_info {
+	display: none;
+}
+#trail_view_container.active_view .trail_info {
+	display: block;
 }
 
 /* 
@@ -84,9 +106,14 @@ a {
 }
 
 #search_view_container {
+	padding: 10px;
 	background-color: white;
 	overflow-y: auto;
 	height: 100%;
+}
+
+.search_app_info {
+	width: 350px;
 }
 
 #trail_view_container {
