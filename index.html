@@ -21,116 +21,118 @@
 				padding: 0;
 			}
 			
-			#map {
-				flex:1;
+			.map_container {
 				z-index: -999;
-				position: absolute;
-				min-height: 100%;
+			}
+			.map_container, #map, .map_overlay {
+				position: fixed;
 				left: 0;
 				top: 0;
 				width: 100%;
+				height: 102%;
 				margin: 0;
 				padding: 0;
 				
 			}
-			#overlay {
-				background: rgba(0,0,0,0.40);
+			.map_overlay {
+				background-color: rgba(0,0,0,0.45);
+			}
+			
+			#trail_view_container {
 				color: white;
 				text-align: center;
-				left: 0;
-				top: 0;
-				width: 100%;
-				min-height: 100%;
-				height: 100%;
-				margin: 0;
-				padding: 0;
 			}
 		</style>
 	</head>
 	<body>
+		<div class="map_container">
+			<div id="map"></div>
+			<div class="map_overlay"></div>
+		</div>
+	
 		<!-- Search page - Allows you to search a location and list the trails nearby. -->
 		
 		<div class="views_container">
 		
 			<div id="search_view_container" class="view active_view">
-				<main>
-					<div style="display: flex; flex-direction: row; justify-content: space-between;">
-						<h2>Hiking Trails Search</h2>
-						<div id="app_info_button">
-							<h2>
-								<img src="img/question-mark.svg" style="height: 1em; width: auto; padding-left: 100px;">
-							</h2>
-						</div>
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<h2>Hiking Trails Search</h2>
+					<div id="app_info_button">
+						<h2>
+							<img src="img/question-mark.svg" style="height: 1em; width: auto; padding-left: 100px;">
+						</h2>
 					</div>
-					<p class="search_app_info">Type in your location and hit search to find nearby hikes. Click on each to browse more information.</p>
-					<form id="search_form">
-						<input type="text" placeholder="Parks near location..." id="search_text" value="Philadelphia">
-						<input type="submit" value="Search For Trails" id="search_button">
-					</form>
-					<div id="search_results">
-						<ul>
-						</ul>
-					</div>
-				</main>
-				
-				<script src="searchtrails.js"></script>
+				</div>
+				<p class="search_app_info">Type in your location and hit search to find nearby hikes. Click on each to browse more information.</p>
+				<form id="search_form">
+					<input type="text" placeholder="Parks near location..." id="search_text" value="Philadelphia">
+					<input type="submit" value="Search For Trails" class="btn" id="search_button">
+				</form>
+				<div id="search_results">
+					<ul>
+					</ul>
+				</div>
 			</div>
 			
 			<!-- Trail page - Displays info about the trail after you click one from search. -->
 			
 			<div id="trail_view_container" class="view inactive_view">
-				<div id="map"></div>
-				<div id="overlay">
 				
-					<div class="app_info">
-						<div class="back_button_container">
-							<div class="back_to_search_button"></div>
-						</div>
-						<div class="app_info_box">
-							<h2>Hiking Trails Search</h2>
-							<img src="img/logo.svg" style="width: 300px; height: auto;">
-							<p>
-								Enter your location into the search bar to find nearby hiking trails.
-								Click on one to discover more information about it such as trail difficulty, user rating, and directions via Google Maps.
-							</p>
-							<p>
-								Created by Logan Krumbhaar
-							</p>
-							<p>
-								Data provided by hikingproject.com and Google Maps.
-							</p>
-						</div>
+				<div class="app_info">
+					<div class="back_button_container">
+						<div class="back_to_search_button"></div>
 					</div>
-					
-					<div class="trail_info">
-						<div class="back_button_container">
-							<div class="back_to_search_button"></div>
-						</div>
-						<h1><a class="title" href="#" target="_blank"></a></h1>
-						<p class="location"></p>
-						<p>Distance from you: <span class="distFromUser"></span></p>
-						<p>Length: <span class="length">0</span> miles</p>
-						<p>Ascent: <span class="ascent">0</span>, Descent: <span class="descent">0</span></p>
-						<p>Difficulty: <span class="difficulty"></span></p>
-						<div class="rating">
-								<img src="img/star.svg" style="width: 50px; height: auto;">
-								<img src="img/star.svg" style="width: 50px; height: auto;">
-								<img src="img/star.svg" style="width: 50px; height: auto;">
-								<img src="img/star.svg" style="width: 50px; height: auto;">
-								<img src="img/half star.svg" style="width: 50px; height: auto;">
-						</div>
-						<p><span class="description"></span> <br> <a class="read-more" href="#" target="_blank">Read More on hikingproject.com...</a></p>
-						<div>
-							<img class="preview" src="" alt="Park preview image" style="width: 400px; height: 300px; object-fit: cover;">
-							<div id="pano" style="width: 400px; height: 300px; display: inline-block;"></div>
-						</div>
-						<div><a class="maps-link" href="#" target="_blank">Click to view hike in Google Maps</a></div></div>
+					<div class="app_info_box">
+						<h2>Hiking Trails Search</h2>
+						<img src="img/logo.svg" style="width: 300px; height: auto;">
+						<p>
+							Enter your location into the search bar to find nearby hiking trails.
+							Click on one to discover more information about it such as trail difficulty, user rating, and directions via Google Maps.
+						</p>
+						<p>
+							Created by Logan Krumbhaar
+						</p>
+						<p>
+							Data provided by hikingproject.com and Google Maps.
+						</p>
 					</div>
-					
 				</div>
+				
+				<div class="trail_info">
+					<div class="back_button_container">
+						<div class="back_to_search_button"></div>
+					</div>
+					<h1 class="title"></h1>
+					<h4 class="description"></h4>
+					<div>
+						<span class="location"></span>
+						<span class="margin-sides-sm">Distance from you: <span class="distFromUser"></span></span>
+						<span>Length: <span class="length">0</span> miles</span>
+					</div>
+					<div>
+						<span>Ascent: <span class="ascent">0</span>, Descent: <span class="descent">0</span></span>
+						<span class="margin-left-sm">Difficulty: <span class="difficulty"></span></span>
+					</div>
+					<div class="rating">
+							<img src="img/star.svg" style="width: 50px; height: auto;">
+							<img src="img/star.svg" style="width: 50px; height: auto;">
+							<img src="img/star.svg" style="width: 50px; height: auto;">
+							<img src="img/star.svg" style="width: 50px; height: auto;">
+							<img src="img/half star.svg" style="width: 50px; height: auto;">
+					</div>
+					<p> <br> <a class="read-more btn btn-large" href="#" target="_blank">Find Out More</a></p>
+					<div class="trail_imgs">
+						<img class="preview" src="" alt="Park preview image" style="width: 400px; height: 300px; object-fit: cover;">
+						<div id="pano" style="width: 400px; height: 300px; display: inline-block;"></div>
+					</div>
+					<div><a class="maps-link" href="#" target="_blank">Get Directions</a></div></div>
+				</div>
+				
 			</div>
 		
 		</div>
+		
+		<script src="searchtrails.js"></script>
 		
 		<script src="streetview.js"></script>
 		<script src="mapview.js"></script>

@@ -1,6 +1,6 @@
 function displayTrail(json) {
 	$(".title").html(json.name);
-	$(".title").attr("href",json.url);
+	//$(".title").attr("href",json.url);
 	
 	$(".location").html(json.location);
 	
@@ -36,7 +36,7 @@ function displayTrail(json) {
 	$(".preview").css("display",json.imgMedium?"inline":"none");
 	
 	$(".maps-link").attr("href","https://www.google.com/maps/search/?api=1&query="+json.latitude+","+json.longitude);
-	$(".maps-link").html("Click to view hike in Google Maps ("+json.latitude+", "+json.longitude+")");
+	$(".maps-link").html("Get Directions ("+json.latitude+", "+json.longitude+")");
 	
 	setPanoramaLocation(json.latitude, json.longitude);
 	

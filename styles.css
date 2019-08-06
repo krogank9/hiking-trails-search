@@ -2,10 +2,6 @@
 	box-sizing: border-box;
 }
 
-.d-none { display: none; }
-.d-block { display: block; }
-.d-flex { display: flex; }
-
 body {
 	font-family: "Archivo Narrow", Helvetica, sans-serif;	
 }
@@ -83,34 +79,10 @@ input[type="text"] {
 	/*margin-bottom: 55px;*/
 }
 
-input[type="submit"] {
-	color: whitesmoke;
-	border: 1px solid #fff;
-	border-radius: 1px;
-	background-color: white;
-	color: black;
-	padding: 5px 5px;
-	outline: none;
-	font-size: 25px;
-	transition: all 100ms;
-}
 
-
-input[type="submit"]:hover {
-	color: black;
-	background-color: #ccc;
-	border-color: #ccc;
-	cursor: pointer;
-}
-
-
-input[type="submit"]:active {
-	color: white;
-	background-color: black;
-	border-color: white;
-}
 
 .app_info {
+	display: flex;
 	height: 100%;
 	flex-direction: column;
 	justify-content: center;	
@@ -128,6 +100,12 @@ input[type="submit"]:active {
 	cursor: pointer;
 }
 
+.margin-sides-sm {
+	margin: 0 10px;
+}.margin-left-sm {
+	margin-left: 10px;
+}
+
 /*---------------------*/
 
 /* 
@@ -141,6 +119,21 @@ input[type="submit"]:active {
 	}
 	.search_app_info {
 		display: none;
+	}
+	
+	.trail_info {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		justify-content: space-around;
+	}
+	
+	.trail_imgs {
+		min-height: 100px;
+	}
+	#pano, .preview {
+		width: auto;
+		height: 100%;
 	}
 }
 
@@ -240,6 +233,40 @@ input[type="submit"]:active {
 
 #trail_view_container {
 	flex: 1;
-	height: 100%;
-	overflow-y: hidden;
+	min-height: 100%;
+	overflow-y: auto;
+}
+
+.d-none { display: none; } 
+
+
+/*----*/
+
+/* General button style (reset) */
+.btn {
+	cursor: pointer; 
+	outline: none;
+	
+	display: inline-block;
+	border: 3px solid white;
+	text-decoration: none;
+	font-size: 120%;
+	font-weight: 600;
+	padding: 5px 5px;
+	
+	background-color: white;
+	color: black;
+	
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-large {
+	padding: 25px 80px;
+}
+
+.btn:hover {
+	color: white;
+	background-color: black;
 }
