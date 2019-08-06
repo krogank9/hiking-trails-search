@@ -41,6 +41,7 @@
 				top: 0;
 				width: 100%;
 				min-height: 100%;
+				height: 100%;
 				margin: 0;
 				padding: 0;
 			}
@@ -57,7 +58,7 @@
 					<p class="search_app_info">Type in your location and hit search to find nearby hikes. Click on each to browse more information.</p>
 					<form id="search_form">
 						<input type="text" placeholder="Parks near location..." id="search_text" value="Philadelphia">
-						<input type="submit" value="Search">
+						<input type="submit" value="Search For Trails" id="search_button">
 					</form>
 					<div id="search_results">
 						<ul>
@@ -75,21 +76,26 @@
 				<div id="overlay">
 				
 					<div class="app_info">
-						<h2>Hiking Trails Search</h2>
-						<p>
-							Search your location using the box at the left to find nearby hiking trails.
-							Click on one to discover more information about it such as trail difficulty, user rating, and directions via Google Maps.
-						</p>
-						<p>
-							Created by Logan Krumbhaar
-						</p>
-						<p>
-							Data provided by hikingproject.com and Google Maps.
-						</p>
+						<div class="app_info_box">
+							<h2>Hiking Trails Search</h2>
+							<img src="img/logo.svg" style="width: 300px; height: auto;">
+							<p>
+								Search your location using the box at the left to find nearby hiking trails.
+								Click on one to discover more information about it such as trail difficulty, user rating, and directions via Google Maps.
+							</p>
+							<p>
+								Created by Logan Krumbhaar
+							</p>
+							<p>
+								Data provided by hikingproject.com and Google Maps.
+							</p>
+						</div>
 					</div>
 					
 					<div class="trail_info">
-						<button id="back_to_search_button">&lt;-- Back to search results</button>
+						<div class="back_button_container">
+							<div id="back_to_search_button"></div>
+						</div>
 						<h1><a class="title" href="#" target="_blank"></a></h1>
 						<p class="location"></p>
 						<p>Distance from you: <span class="distFromUser"></span></p>
