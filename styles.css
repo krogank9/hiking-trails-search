@@ -2,6 +2,10 @@
 	box-sizing: border-box;
 }
 
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+
 body {
 	font-family: "Archivo Narrow", Helvetica, sans-serif;	
 }
@@ -120,6 +124,9 @@ input[type="submit"]:active {
 	margin: auto;
 }
 
+#app_info_button {
+	cursor: pointer;
+}
 
 /*---------------------*/
 
@@ -143,13 +150,16 @@ input[type="submit"]:active {
 */
 
 .back_button_container {
+	position: absolute;
+	top: 0;
+	left: 0;
 	text-align: left;
 }
-#back_to_search_button {
+.back_to_search_button {
 	display: inline-block;
 	margin: 20px;
 }
-#back_to_search_button::before {
+.back_to_search_button::before {
     position: relative;
     /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
     content: "";
@@ -172,20 +182,11 @@ input[type="submit"]:active {
 		flex: 1;
 		display: block;
 	}
-}
 
-#trail_view_container.view .app_info {
-	display: flex;
-}#trail_view_container.view .trail_info {
-	display: none;
+	.trail_info {
+		padding: 50px;
+	}
 }
-#trail_view_container.active_view .app_info {
-	display: none;
-}
-#trail_view_container.active_view .trail_info {
-	display: block;
-}
-
 /* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px

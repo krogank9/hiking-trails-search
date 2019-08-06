@@ -121,6 +121,6 @@ $("#search_results").on('click', "li", function(e) {
 	console.log("JSON:");
 	console.log(json);
 	displayTrail(json);
-	window.searchActive = false;
-	updateActiveView();
+	
+	showTrailPage();
 });
