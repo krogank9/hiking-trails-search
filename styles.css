@@ -341,6 +341,7 @@ input[type="text"] {
 
 .btn-large {
 	padding: 25px 80px;
+	margin: 10px 5px; 
 }
 
 .btn:hover {
