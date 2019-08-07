@@ -87,7 +87,8 @@ a {
 #search_form #search_text {
 	width: 290px;
 	margin-right: 10px;
-}#search_form #search_button {
+}
+#search_form #search_button {
 	
 	flex: 1;
 }
@@ -221,6 +222,30 @@ input[type="text"] {
 	
 	.app_info {
 		padding-top: 150px;
+	}
+	
+	#search_view_container {
+		width: 100%;
+	}
+	
+	#search_results li .name {
+		display: inline-block;
+		width: 	60%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding: 2px;
+	}
+	#search_results li .dist {
+		display: inline-block;
+		width: 40%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	#search_form #search_text {
+		width: calc(60%-10px);
+		margin-right: 10px;
 	}
 }
 /* 
