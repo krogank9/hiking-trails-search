@@ -289,6 +289,8 @@ input[type="text"] {
 	
 	display: inline-block;
 	border: 3px solid white;
+	border-radius: 0px;
+	
 	text-decoration: none;
 	font-size: 120%;
 	font-weight: 600;
