@@ -76,7 +76,7 @@ a {
 	padding: 2px;
 }
 #search_results li:hover {
-	background-color: grey;
+	background-color: #555;
 	color: white;
 	cursor: pointer;
 }

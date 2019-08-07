@@ -36,7 +36,7 @@ function displayTrail(json) {
 	$(".preview").css("display",json.imgMedium?"inline":"none");
 	
 	$(".maps-link").attr("href","https://www.google.com/maps/search/?api=1&query="+json.latitude+","+json.longitude);
-	$(".maps-link").html("Get Directions ("+json.latitude+", "+json.longitude+")");
+	//$(".maps-link").html("Get Directions ("+json.latitude+", "+json.longitude+")");
 	
 	setPanoramaLocation(json.latitude, json.longitude);
 	

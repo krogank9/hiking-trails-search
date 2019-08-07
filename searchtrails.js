@@ -1,6 +1,13 @@
 $(function() {
-	if($("#search_text").val())
+	$.getJSON("//extreme-ip-lookup.com/json/", function(json) {
+		if (json.city && json.region) {
+			$('#search_text').val(json.city + ", " + json.region);
+		}
+		else {
+			$('#search_text').val("Philadelphia");
+		}
 		showSearchResults($("#search_text").val());
+	});
 });
 // handle form submission & display results
 $("#search_form").submit(function(e){
