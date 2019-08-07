@@ -48,6 +48,8 @@ function showSearchPage() {
 	showingScrollPage = true;
 	if(isMobile())
 		window.scrollTo(0,searchScroll);
+	
+	$("#search_button").val(isDesktop()?"Search For Trails":"Search")
 }
 
 $(".back_to_search_button").click(function(){
