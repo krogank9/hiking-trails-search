@@ -314,7 +314,8 @@ input[type="text"] {
 	
 	display: inline-block;
 	border: 3px solid white;
-	border-radius: 0px;
+	border-radius: 0;
+	-webkit-appearance: none;
 	
 	text-decoration: none;
 	font-size: 120%;
