@@ -49,7 +49,7 @@ function showSearchPage() {
 	if(isMobile())
 		window.scrollTo(0,searchScroll);
 	
-	$("#search_button").val(isDesktop()?"Search For Trails":"Search")
+	$("#search_button").attr("value",isDesktop()?"Search For Trails":"Search")
 }
 
 $(".back_to_search_button").click(function(){
