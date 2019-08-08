@@ -254,6 +254,9 @@ input[type="text"] {
 	#trail_view_container, #trail_info {
 		width: 100%;
 	}
+	.trail_specs_div > * {
+		display: block;
+	}
 }
 /* 
   ##Device = Tablets, Ipads (portrait)
@@ -313,10 +316,6 @@ input[type="text"] {
 
 .rating {
 	margin-top: 1em;
-}
-
-.trail_specs_div > * {
-	display: block;
 }
 
 /*----*/
