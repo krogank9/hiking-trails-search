@@ -311,6 +311,9 @@ input[type="text"] {
 
 .d-none { display: none; } 
 
+.rating {
+	margin-top: 1em;
+}
 
 /*----*/
 
