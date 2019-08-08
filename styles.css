@@ -75,10 +75,12 @@ a {
 	text-overflow: ellipsis;
 	padding: 2px;
 }
-#search_results li:hover {
-	background-color: #555;
-	color: white;
-	cursor: pointer;
+@media (hover: hover) {
+	#search_results li:hover {
+		background-color: #555;
+		color: white;
+		cursor: pointer;
+	}
 }
 
 #search_form {
@@ -364,8 +366,9 @@ input[type="text"] {
 	padding: 25px 80px;
 	margin: 10px 5px; 
 }
-
-.btn:hover {
-	color: white;
-	background-color: black;
+@media (hover: hover) {
+	.btn:hover {
+		color: white;
+		background-color: black;
+	}
 }
