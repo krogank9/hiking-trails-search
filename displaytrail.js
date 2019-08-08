@@ -33,7 +33,7 @@ function displayTrail(json) {
 	$(".read-more").attr("href",json.url);
 	
 	$(".preview").attr("src",json.imgMedium);
-	$(".preview").css("display",json.imgMedium?"inline":"none");
+	$(".preview").parent().css("display",json.imgMedium?"inline-block":"none");
 	
 	$(".maps-link").attr("href","https://www.google.com/maps/search/?api=1&query="+json.latitude+","+json.longitude);
 	//$(".maps-link").html("Get Directions ("+json.latitude+", "+json.longitude+")");
