@@ -315,6 +315,10 @@ input[type="text"] {
 	margin-top: 1em;
 }
 
+.trail_specs_div > * {
+	display: block;
+}
+
 /*----*/
 
 /* General button style (reset) */
