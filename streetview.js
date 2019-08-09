@@ -49,7 +49,7 @@ function processSVData(data, status) {
             panorama.setVisible(true);
         });
     } else {
-        alert('Street View data not found for this location.');
+        //alert('Street View data not found for this location.');
     }
 }
 
