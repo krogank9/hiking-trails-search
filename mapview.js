@@ -5,12 +5,12 @@ function setMapCenter(lat, lon) {
 }
 
 function initMap() {
-	map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 39.9512, lng: -75.4524},
 		zoom: 15,
 		disableDefaultUI: true,
 		zoomControl: false,
-		mapTypeId: 'satellite'
+		mapTypeId: "satellite"
 	});
 }
 

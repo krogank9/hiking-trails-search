@@ -27,7 +27,7 @@ function displayTrail(json) {
 	let stars_arr = Array(num_stars).fill("<img class='star' src='img/star.svg'>")
 					.concat(add_half?["<img class='star' src='img/half star.svg'>"]:[])
 					.concat(Array(num_empty).fill("<img class='star' src='img/empty star.svg'>"));
-	$(".rating").html(stars_arr.join(''));
+	$(".rating").html(stars_arr.join(""));
 	$(".star").css({opacity: 0});
 	$(".star").each(function(index){
 		$(this).delay(index*100).animate({opacity: 1},300);

@@ -1,10 +1,10 @@
 $(function() {
 	$.getJSON("//extreme-ip-lookup.com/json/", function(json) {
 		if (json.city && json.region) {
-			$('#search_text').val(json.city + ", " + json.region);
+			$("#search_text").val(json.city + ", " + json.region);
 		}
 		else {
-			$('#search_text').val("Philadelphia");
+			$("#search_text").val("Philadelphia");
 		}
 		showSearchResults($("#search_text").val());
 	});
@@ -18,14 +18,14 @@ $("#search_form").submit(function(e){
 function formatQueryParameters(params) {
 	const queryItems = Object.keys(params)
 		.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
-	return queryItems.join('&');
+	return queryItems.join("&");
 }
 
 function queryToLatLong(query, cb) {
 
 	let geocoder = new google.maps.Geocoder();
 
-	geocoder.geocode( { 'address': query}, function(results, status) {
+	geocoder.geocode( { "address": query}, function(results, status) {
 
 		if (status == google.maps.GeocoderStatus.OK) {
 			window.searchLat = results[0].geometry.location.lat();
@@ -56,7 +56,7 @@ function getNearbyTrails(lat, lon, cb) {
 		maxResults: 50,
 		"sort": "distance",
 		key: "200536993-480f088125ad09c34aa10be8f6283e9c"
-	}
+	};
 	let formattedParams = formatQueryParameters(queryParams);
 	fetch("https://www.hikingproject.com/data/get-trails?"+formattedParams)
 		.then(function(response){
@@ -122,9 +122,8 @@ function showSearchResults(query) {
 }
 
 
-$("#search_results").on('click', "li", function(e) {
-	console.log('a');
-	let b64 = $(this).data('parkjson');
+$("#search_results").on("click", "li", function(e) {
+	let b64 = $(this).data("parkjson");
 	let json = JSON.parse(decodeURIComponent(unescape(b64)));
 	console.log("JSON:");
 	console.log(json);
