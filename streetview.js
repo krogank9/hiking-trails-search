@@ -13,7 +13,6 @@ window.panorama;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'));
-    //setPanoramaLocation(38.94810, -75.44600);
 }
 
 function setPanoramaLocation(lat, lon) {
