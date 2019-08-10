@@ -1,3 +1,6 @@
+// Map hikingproject.com JSON response to HTML on trail view.
+// Fill in the strings and values to display trail information to user.
+
 function displayTrail(json) {
 	$(".title").html(json.name);
 	//$(".title").attr("href",json.url);
@@ -46,6 +49,8 @@ function displayTrail(json) {
 	
 	setMapCenter(json.latitude, json.longitude);
 }
+
+// Example JSON response for reference:
 
 /*
 let testJSON = {

@@ -3,6 +3,10 @@
 
 window.map = null;
 
+$(function() {
+	initMap();
+});
+
 function setMapCenter(lat, lon) {
 	map.setCenter({"lat":lat, "lng":lon});
 }
@@ -16,7 +20,3 @@ function initMap() {
 		mapTypeId: "satellite"
 	});
 }
-
-$(function() {
-	initMap();
-});

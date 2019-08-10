@@ -17,18 +17,20 @@ $(function() {
 	});
 });
 
-// handle form submission & display results
+// When the search form with the user location is submitted, start the process of querying APIs to get trail search results
 $("#search_form").submit(function(e){
 	e.preventDefault();
 	showSearchResults($("#search_text").val());
 });
 
+// Format an api query string from a params object with keys/values
 function formatQueryParameters(params) {
 	const queryItems = Object.keys(params)
 		.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
 	return queryItems.join("&");
 }
 
+// Converts a textual user query to lat/long via Google's API. Can handle things like cities, states, zip codes.
 function queryToLatLong(query, cb) {
 
 	let geocoder = new google.maps.Geocoder();
@@ -38,15 +40,29 @@ function queryToLatLong(query, cb) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			window.searchLat = results[0].geometry.location.lat();
 			window.searchLon = results[0].geometry.location.lng();
-
+			
+			// If successful, return the lat/lon in the callback
 			cb(window.searchLat, window.searchLon);
 		}
 		else {
+			// If failed to find a lat/lon return 0,0 with a true error status
 			cb(0,0,true);
 		}
 	});
 }
 
+// Gets distance between lat/lon's in miles
+function getDistanceBetweenLatLong(fromLat,fromLng,toLat,toLng) {
+	let miles = google.maps.geometry.spherical.computeDistanceBetween(
+		new google.maps.LatLng(fromLat, fromLng), 
+		new google.maps.LatLng(toLat, toLng)
+	) / 1609.34; // Google api returns meters. Convert meters -> miles
+	
+	// Return miles with up to 1 decimal place
+	return parseFloat(miles.toFixed(1));
+}
+
+// Simple sort incorporating getDistanceBetweenLatLong for trail list
 function sortTrailsByLatLong(trails, lat, lon) {
 	return trails.sort(function(a,b){
 		let distA = getDistanceBetweenLatLong(lat,lon, a.latitude,a.longitude);
@@ -55,15 +71,17 @@ function sortTrailsByLatLong(trails, lat, lon) {
 	});
 }
 
+// Query the hiking project API for trails within 250 miles of a lat/lon
 function getNearbyTrails(lat, lon, cb) {
 	let queryParams = {
 		lat: lat,
 		lon: lon,
-		maxDistance: 100,
+		maxDistance: 250,
 		maxResults: 50,
 		"sort": "distance",
 		key: "200536993-480f088125ad09c34aa10be8f6283e9c"
 	};
+	
 	let formattedParams = formatQueryParameters(queryParams);
 	fetch("https://www.hikingproject.com/data/get-trails?"+formattedParams)
 		.then(function(response){
@@ -85,26 +103,14 @@ function getNearbyTrails(lat, lon, cb) {
 		});
 }
 
-// distance between lat/lons in miles
-function getDistanceBetweenLatLong(fromLat,fromLng,toLat,toLng) {
-	let miles = google.maps.geometry.spherical.computeDistanceBetween(
-		new google.maps.LatLng(fromLat, fromLng), 
-		new google.maps.LatLng(toLat, toLng)
-	) / 1609.34; // convert meters -> miles
-	
-	return parseFloat(miles.toFixed(1));
-}
-
-function JSONFromB64(b64) {
-	return JSON.parse(atob(b64));
-}
-
+// Convert the hikingproject.com search json results to an HTML representation we can display the user
 function trailsJSONToHTML(json) {
 	let trailsHTML = json["trails"].map(function(trail){
 		let distFromUser = getDistanceBetweenLatLong(window.searchLat,window.searchLon,trail.latitude,trail.longitude)
-		trail["distFromUser"] = distFromUser; // Put in JSON to display on results page
 		
-		// encode park JSON info to base64 to be decoded when passed in li event callback
+		// Neccessary to modify the JSON and put trail distance in as it is also displayed on the trail info page.
+		trail["distFromUser"] = distFromUser;
+		
 		return (
 		`<li data-parkjson="${encodeURIComponent(escape(JSON.stringify(trail)))}">
 			<span class="name">${trail.name}</span>
@@ -115,9 +121,11 @@ function trailsJSONToHTML(json) {
 			</span>
 		</li>`);
 	});
+	
 	return "<ul>\n"+trailsHTML.join("\n\t")+"\n</ul>";
 }
 
+// Put all of the API query and JSON -> HTML functions together to show the search results to the user.
 function showSearchResults(query) {
 	queryToLatLong(query, function(lat, lon, error){
 		if(error) {
@@ -141,6 +149,7 @@ function showSearchResults(query) {
 	});
 }
 
+// When a search result list item is clicked, display it on the trail page and show to the user
 $("#search_results").on("click", "li", function(e) {
 	let b64 = $(this).data("parkjson");
 	let json = JSON.parse(decodeURIComponent(unescape(b64)));
