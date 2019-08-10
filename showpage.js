@@ -60,14 +60,6 @@ $("#app_info_button").click(function(){
 	showAppInfoPage();
 });
 
-function setDefaultSearchQuery() {
-	$.getJSON("//extreme-ip-lookup.com/json/", function(json) {
-		if (json.city && json.region) {
-			$('#search_text').val(json.city + ", " + json.region);
-		}
-	});
-}
-
 $(function() {
 	if(isDesktop())
 		showAppInfoPage();

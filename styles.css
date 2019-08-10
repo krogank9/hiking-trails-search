@@ -58,6 +58,10 @@ a {
 	height: 12px;
 }
 
+#search_results > p {
+	max-width: 450px;
+}
+
 #search_results ul {
 	list-style: none;
 	padding-left: 0;

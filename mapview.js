@@ -1,3 +1,6 @@
+// Initialize the background map with a Google Maps satellite image.
+// When a trail is clicked the map is moved to its location using setMapCenter
+
 window.map = null;
 
 function setMapCenter(lat, lon) {

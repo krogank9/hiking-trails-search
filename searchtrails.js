@@ -1,12 +1,19 @@
 $(function() {
-	$.getJSON("//extreme-ip-lookup.com/json/", function(json) {
-		if (json.city && json.region) {
-			$("#search_text").val(json.city + ", " + json.region);
+	// When the app starts, make a call to IP geolocation API to get user location.
+	// If success, autofill the search box with their location and lookup nearby trails in hikingproject
+	// If fail, internet probably down but still try to lookup nearby trails with the default search value (Philadelphia)
+	$.ajax({
+		dataType: "json",
+		url: "//extreme-ip-lookup.com/json/",
+		success: function(json) {
+			if (json.city && json.region) {
+				$("#search_text").val(json.city + ", " + json.region);
+			}
+			showSearchResults($("#search_text").val());
+		},
+		error: function() {
+			showSearchResults($("#search_text").val());
 		}
-		else {
-			$("#search_text").val("Philadelphia");
-		}
-		showSearchResults($("#search_text").val());
 	});
 });
 
@@ -26,7 +33,7 @@ function queryToLatLong(query, cb) {
 
 	let geocoder = new google.maps.Geocoder();
 
-	geocoder.geocode( { "address": query}, function(results, status) {
+	geocoder.geocode( { "address": encodeURIComponent(query)}, function(results, status) {
 
 		if (status == google.maps.GeocoderStatus.OK) {
 			window.searchLat = results[0].geometry.location.lat();
@@ -36,7 +43,6 @@ function queryToLatLong(query, cb) {
 		}
 		else {
 			cb(0,0,true);
-			console.log("Error querying lat/long.");
 		}
 	});
 }
@@ -61,11 +67,21 @@ function getNearbyTrails(lat, lon, cb) {
 	let formattedParams = formatQueryParameters(queryParams);
 	fetch("https://www.hikingproject.com/data/get-trails?"+formattedParams)
 		.then(function(response){
-			return response.json();
+			if(response.ok) {
+				return response.json();
+			}
+			else {
+				throw new Error(response.statusText);
+			}
 		})
 		.then(function(json){
+			// Re-sort json as hiking project doesn't sort by exact distance between lat/lon's
 			json.trails = sortTrailsByLatLong(json.trails, lat, lon);
 			cb(json);
+		})
+		.catch(function(err) {
+			// Callback with null to signify there was a problem contact hiking api.
+			cb(null);
 		});
 }
 
@@ -99,25 +115,28 @@ function trailsJSONToHTML(json) {
 			</span>
 		</li>`);
 	});
-	return "\n\t"+trailsHTML.join("\n\t")+"\n"
+	return "<ul>\n"+trailsHTML.join("\n\t")+"\n</ul>";
 }
 
 function showSearchResults(query) {
-	console.log("Querying google for lat/long...");
 	queryToLatLong(query, function(lat, lon, error){
 		if(error) {
-			$("#search_results ul").html("No trails found! Please try another search query.");
+			$("#search_results").html("<p>No trails found! Please try another search query.</p>");
 			return;
 		}
-		console.log("Querying hiking API for nearby trails...");
+		
 		getNearbyTrails(lat, lon, function(json) {
-			if(json["trails"].length == 0) {
-				$("#search_results ul").html("No trails found! Please try another search query.");
+			if(json === null) {
+				$("#search_results").html("<p>There was a problem contacting the hikingproject.com API. Please try again later.</p>");
+				return;
+			}
+			else if(json["trails"].length == 0) {
+				$("#search_results").html("<p>No trails found! Please try another search query.</p>");
 				return;
 			}
 			let resultsHTML = trailsJSONToHTML(json);
-			console.log(json)
-			$("#search_results ul").html(resultsHTML);
+			
+			$("#search_results").html(resultsHTML);
 		});
 	});
 }
@@ -125,8 +144,6 @@ function showSearchResults(query) {
 $("#search_results").on("click", "li", function(e) {
 	let b64 = $(this).data("parkjson");
 	let json = JSON.parse(decodeURIComponent(unescape(b64)));
-	console.log("JSON:");
-	console.log(json);
 	displayTrail(json);
 	
 	showTrailPage();
