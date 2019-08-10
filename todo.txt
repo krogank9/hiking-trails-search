@@ -1,2 +1,0 @@
--search view
--trail info view
