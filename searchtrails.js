@@ -111,13 +111,23 @@ function trailsJSONToHTML(json) {
 		// Neccessary to modify the JSON and put trail distance in as it is also displayed on the trail info page.
 		trail["distFromUser"] = distFromUser;
 		
+		let city = trail.location.split(",")[0];
+		
+		// Set a reasonable max length to prevent crazy long city names stretching views
+		let maxLen = "Philadelphia    ".length;
+		if(city.length > maxLen) {
+			city = city.substring(0, "Philadelphia ".length).trim() + "...";
+		}
+		
 		return (
 		`<li data-parkjson="${encodeURIComponent(escape(JSON.stringify(trail)))}">
 			<span class="name">${trail.name}</span>
-			<span class="dist">
-				${distFromUser} mi
+			<span style="padding: 0; margin: 0;">
+				<span class="search_dist">${distFromUser} mi</span>
 				/
-				${trail.location.split(",")[0]}
+				<span class="search_location">
+					${city}
+				</span>
 			</span>
 		</li>`);
 	});
