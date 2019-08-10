@@ -11,7 +11,7 @@ function displayTrail(json) {
 	$(".ascent").html(json.ascent+"'");
 	$(".descent").html(json.descent+"'");
 	
-	let difficulty_map = {
+	let difficultyMap = {
 		"green":"Easy <img class='difficulty-img' src='img/green.svg'>",
 		"greenBlue":"Easy/Intermediate <img class='difficulty-img' src='img/greenBlue.svg'>",
 		"blue":"Intermediate <img class='difficulty-img' src='img/blue.svg'>",
@@ -19,15 +19,15 @@ function displayTrail(json) {
 		"black":"Difficult <img class='difficulty-img' src='img/black.svg'>",
 		"dblack":"Extremely Difficult <img class='difficulty-img' src='img/dblack.svg'>",
 	};
-	$(".difficulty").html(difficulty_map[json.difficulty]||"Unknown");
+	$(".difficulty").html(difficultyMap[json.difficulty]||"Unknown");
 	
-	let num_stars = Math.floor(parseFloat(json.stars)||0);
-	let add_half = (parseFloat(json.stars) - num_stars) >= 0.5;
-	let num_empty = 5 - num_stars - (add_half?1:0);
-	let stars_arr = Array(num_stars).fill("<img class='star' src='img/star.svg'>")
-					.concat(add_half?["<img class='star' src='img/half star.svg'>"]:[])
-					.concat(Array(num_empty).fill("<img class='star' src='img/empty star.svg'>"));
-	$(".rating").html(stars_arr.join(""));
+	let numStars = Math.floor(parseFloat(json.stars)||0);
+	let addHalf = (parseFloat(json.stars) - numStars) >= 0.5;
+	let numEmpty = 5 - numStars - (addHalf?1:0);
+	let starsArr = Array(numStars).fill("<img class='star' src='img/star.svg'>")
+					.concat(addHalf?["<img class='star' src='img/half star.svg'>"]:[])
+					.concat(Array(numEmpty).fill("<img class='star' src='img/empty star.svg'>"));
+	$(".rating").html(starsArr.join(""));
 	$(".star").css({opacity: 0});
 	$(".star").each(function(index){
 		$(this).delay(index*100).animate({opacity: 1},300);

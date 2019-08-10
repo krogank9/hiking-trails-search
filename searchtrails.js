@@ -9,6 +9,7 @@ $(function() {
 		showSearchResults($("#search_text").val());
 	});
 });
+
 // handle form submission & display results
 $("#search_form").submit(function(e){
 	e.preventDefault();
@@ -120,7 +121,6 @@ function showSearchResults(query) {
 		});
 	});
 }
-
 
 $("#search_results").on("click", "li", function(e) {
 	let b64 = $(this).data("parkjson");

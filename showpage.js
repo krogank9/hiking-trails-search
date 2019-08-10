@@ -1,5 +1,5 @@
-let searchScroll = 0;
-let showingScrollPage = false;
+window.searchScroll = 0;
+window.showingScrollPage = false;
 
 function isMobile() {
 	return !isDesktop();

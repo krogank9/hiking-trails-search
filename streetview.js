@@ -1,15 +1,9 @@
-/*
- * Click the map to set a new location for the Street View camera.
- */
- 
-// https://www.hikingproject.com/data/get-trails?lat=39.94810&lon=&maxDistance=100&maxResults=100&sort=distance&key=200536993-480f088125ad09c34aa10be8f6283e9c
+window.sv = new google.maps.StreetViewService();
+window.panorama;
 
 $(function() {
     initialize();
 });
-
-window.sv = new google.maps.StreetViewService();
-window.panorama;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'));
