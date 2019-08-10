@@ -114,6 +114,8 @@ function trailsJSONToHTML(json) {
 		let city = trail.location.split(",")[0];
 		
 		// Set a reasonable max length to prevent crazy long city names stretching views
+		// Ellipsis done in JS because double CSS ellipsis next to each other were causing different visual glitches on different browsers.
+		// Easier to add here
 		let maxLen = "Philadelphia    ".length;
 		if(city.length > maxLen) {
 			city = city.substring(0, "Philadelphia ".length).trim() + "...";
