@@ -23,7 +23,7 @@ function formatQueryParameters(params) {
 
 function queryToLatLong(query, cb) {
 
-	var geocoder = new google.maps.Geocoder();
+	let geocoder = new google.maps.Geocoder();
 
 	geocoder.geocode( { 'address': query}, function(results, status) {
 

@@ -1,9 +1,6 @@
-var map;
-var inited_map = false;
+window.map = null;
 
 function setMapCenter(lat, lon) {
-	if(!inited_map)
-		initMap();
 	map.setCenter({"lat":lat, "lng":lon});
 }
 
@@ -15,7 +12,6 @@ function initMap() {
 		zoomControl: false,
 		mapTypeId: 'satellite'
 	});
-	inited_map = true;
 }
 
 $(function() {

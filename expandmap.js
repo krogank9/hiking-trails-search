@@ -1,5 +1,5 @@
 function expandMapHeight() {
-	var totalHeight = 0;
+	let totalHeight = 0;
 
 	$("#overlay").children().each(function(){
 		totalHeight = totalHeight + $(this).outerHeight(true);

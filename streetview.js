@@ -7,11 +7,9 @@
 $(function() {
     initialize();
 });
- 
-var map;
-var sv = new google.maps.StreetViewService();
 
-var panorama;
+window.sv = new google.maps.StreetViewService();
+window.panorama;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'));
@@ -24,30 +22,12 @@ function setPanoramaLocation(lat, lon) {
 
 function processSVData(data, status) {
     if (status == google.maps.StreetViewStatus.OK) {
-        var marker = new google.maps.Marker({
-            position: data.location.latLng,
-            map: map,
-            title: data.location.description
-        });
-
         panorama.setPano(data.location.pano);
         panorama.setPov({
             heading: 270,
             pitch: 0
         });
         panorama.setVisible(true);
-
-        google.maps.event.addListener(marker, 'click', function () {
-
-            var markerPanoID = data.location.pano;
-            // Set the Pano to use the passed panoID
-            panorama.setPano(markerPanoID);
-            panorama.setPov({
-                heading: 270,
-                pitch: 0
-            });
-            panorama.setVisible(true);
-        });
     } else {
         //alert('Street View data not found for this location.');
     }
