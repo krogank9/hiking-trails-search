@@ -11,16 +11,18 @@
 		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<!-- Google maps background -->
 		<div class="map_container">
 			<div id="map"></div>
 			<div class="map_overlay"></div>
 		</div>
 	
-		<!-- Search page - Allows you to search a location and list the trails nearby. -->
 		
-		<div class="views_container">
+		<main class="views_container">
 		
-			<div id="search_view_container" class="view active_view">
+			<!-- Search page - Allows you to search a location and list the trails nearby. -->
+			
+			<section id="search_view_container" class="view active_view">
 				<div class="search_header">
 					<h2>Hiking Trails Search</h2>
 					<div id="app_info_button">
@@ -36,18 +38,19 @@
 				</form>
 				<div id="search_results">
 				</div>
-			</div>
+			</section>
 			
 			<!-- Trail page - Displays info about the trail after you click one from search. -->
 			
-			<div id="trail_view_container" class="view inactive_view">
+			<section id="trail_view_container" class="view inactive_view">
 				
-				<div class="app_info">
+				<section class="app_info">
 					<div class="back_button_container">
 						<div class="back_to_search_button"></div>
 					</div>
+					
 					<div class="app_info_box">
-						<h2>Hiking Trails Search</h2>
+						<h1>Hiking Trails Search</h1>
 						<img src="img/logo.svg" class="logo" alt="Hiking Search App Logo">
 						<p>
 							Enter your location into the search bar to find nearby hiking trails.
@@ -63,16 +66,17 @@
 							IP geolocation by <a href="https://extreme-ip-lookup.com" target="_blank">extreme-ip-lookup.com</a>.
 						</p>
 					</div>
-				</div>
+				</section>
 				
-				<div class="trail_info">
+				<section class="trail_info">
 					<div class="back_button_container">
 						<div class="back_to_search_button"></div>
 					</div>
 					<div>
-						<h1 class="title"></h1>
-						<h4 class="description"></h4>
+						<h1 class="title">Trail Name</h1>
+						<h4 class="description">Trail description</h4>
 					</div>
+					
 					<div class="trail_specs_div">
 						<span class="location"></span>
 						<span class="margin-sides-sm">Distance from you: <span class="distFromUser"></span></span>
@@ -92,16 +96,18 @@
 					</p>
 					<div class="trail_imgs">
 						<div class="ar4x3">
-							<img class="preview" src="" alt="Park preview image">
+							<!-- src is empty gif placeholder -->
+							<img class="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="Park preview image">
 						</div>
 						<div class="ar4x3">
 							<div id="pano"></div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</section>
 				
-		</div>
+			</section>
+				
+		</main>
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDBFUIGkrdcmUmfouUvGmOpMYzQJAKubmQ"></script>
