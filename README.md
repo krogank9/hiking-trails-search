@@ -13,7 +13,7 @@ https://krogank9.github.io/hiking-trails-search/
 
 ## Built With:
 
-* Javascript/Jquery/HTML5/CSS
+* Javascript/jQuery/HTML5/CSS
 * Google Maps API
 * hikingproject.com API
 * extreme-ip-lookup.com API
