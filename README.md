@@ -1,6 +1,6 @@
 # Hiking Trails Search
 
-Tool to find nearby hiking trails and get more information on them. First, type in your location and click search to bring up a list of nearby trails sorted by their proximity to you. Next, you can click on one and you can view information about it such as difficulty and length as well as get directions to it.
+Tool to find nearby hiking trails and get more information on them. First, type in your location and click search to bring up a list of nearby trails sorted by their proximity to you. Next, you can click on one to view information about it such as difficulty and length or get directions to it.
 
 ## Demo:
 
