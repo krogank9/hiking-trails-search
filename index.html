@@ -18,11 +18,11 @@
 		<div class="views_container">
 		
 			<div id="search_view_container" class="view active_view">
-				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+				<div class="search_header">
 					<h2>Hiking Trails Search</h2>
 					<div id="app_info_button">
 						<h2>
-							<img src="img/question-mark.svg" style="height: 1em; width: auto; padding-left: 100px;">
+							<img src="img/question-mark.svg" class="question_mark">
 						</h2>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 					</div>
 					<div class="app_info_box">
 						<h2>Hiking Trails Search</h2>
-						<img src="img/logo.svg" style="width: 300px; height: auto;">
+						<img src="img/logo.svg" class="logo">
 						<p>
 							Enter your location into the search bar to find nearby hiking trails.
 							Click on one to discover more information about it such as trail difficulty, user rating, and directions via Google Maps.
@@ -79,29 +79,20 @@
 						<span>Ascent: <span class="ascent">0</span>, Descent: <span class="descent">0</span></span>
 						<span class="margin-left-sm">Difficulty: <span class="difficulty"></span></span>
 					</div>
+					
 					<div class="rating">
-							<img src="img/star.svg" style="width: 50px; height: auto;">
-							<img src="img/star.svg" style="width: 50px; height: auto;">
-							<img src="img/star.svg" style="width: 50px; height: auto;">
-							<img src="img/star.svg" style="width: 50px; height: auto;">
-							<img src="img/half star.svg" style="width: 50px; height: auto;">
 					</div>
+					
 					<p>
 						<a class="read-more btn btn-large" href="#" target="_blank">Find Out More</a>
 						<a class="maps-link btn btn-large" href="#" target="_blank">Get Directions</a>
 					</p>
 					<div class="trail_imgs">
-					
-					<!--
-						<img class="preview" src="" alt="Park preview image" style="width: 400px; height: 300px; object-fit: cover;">
-						<div id="pano" style="width: 400px; height: 300px; display: inline-block;"></div>
-					-->
-					
-						<div class="ar4x3" style="display: inline-block;">
-							<img class="preview" src="" alt="Park preview image" style="width: 100%; height: 100%; object-fit: cover;">
+						<div class="ar4x3">
+							<img class="preview" src="" alt="Park preview image">
 						</div>
-						<div class="ar4x3" style="display: inline-block;">
-							<div id="pano" style="width: 100%; height: 100%; display: inline-block;"></div>
+						<div class="ar4x3">
+							<div id="pano"></div>
 						</div>
 					</div>
 				</div>

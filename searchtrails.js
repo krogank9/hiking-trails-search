@@ -124,7 +124,7 @@ function trailsJSONToHTML(json) {
 		return (
 		`<li data-parkjson="${encodeURIComponent(escape(JSON.stringify(trail)))}">
 			<span class="name">${trail.name}</span>
-			<span style="padding: 0; margin: 0;">
+			<span>
 				<span class="search_dist">${distFromUser} mi</span>
 				/
 				<span class="search_location">
