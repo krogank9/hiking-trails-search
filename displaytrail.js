@@ -15,21 +15,21 @@ function displayTrail(json) {
 	$(".descent").html(json.descent+"'");
 	
 	let difficultyMap = {
-		"green":"Easy <img class='difficulty-img' src='img/green.svg'>",
-		"greenBlue":"Easy/Intermediate <img class='difficulty-img' src='img/greenBlue.svg'>",
-		"blue":"Intermediate <img class='difficulty-img' src='img/blue.svg'>",
-		"blueBlack":"Intermediate/Difficult <img class='difficulty-img' src='img/blueBlack.svg'>",
-		"black":"Difficult <img class='difficulty-img' src='img/black.svg'>",
-		"dblack":"Extremely Difficult <img class='difficulty-img' src='img/dblack.svg'>",
+		"green":"Easy <img class='difficulty-img' src='img/green.svg' alt='Easy'>",
+		"greenBlue":"Easy/Intermediate <img class='difficulty-img' src='img/greenBlue.svg' alt='Easy/Intermediate'>",
+		"blue":"Intermediate <img class='difficulty-img' src='img/blue.svg' alt='Intermediate'>",
+		"blueBlack":"Intermediate/Difficult <img class='difficulty-img' src='img/blueBlack.svg' alt='Intermediate/Difficult'>",
+		"black":"Difficult <img class='difficulty-img' src='img/black.svg' alt='Difficult'>",
+		"dblack":"Extremely Difficult <img class='difficulty-img' src='img/dblack.svg' alt='Extremely Difficult'>",
 	};
 	$(".difficulty").html(difficultyMap[json.difficulty]||"Unknown");
 	
 	let numStars = Math.floor(parseFloat(json.stars)||0);
 	let addHalf = (parseFloat(json.stars) - numStars) >= 0.5;
 	let numEmpty = 5 - numStars - (addHalf?1:0);
-	let starsArr = Array(numStars).fill("<img class='star' src='img/star.svg'>")
-					.concat(addHalf?["<img class='star' src='img/half star.svg'>"]:[])
-					.concat(Array(numEmpty).fill("<img class='star' src='img/empty star.svg'>"));
+	let starsArr = Array(numStars).fill("<img class='star' src='img/star.svg' alt='Star'>")
+					.concat(addHalf?["<img class='star' src='img/half star.svg' alt='Half Star'>"]:[])
+					.concat(Array(numEmpty).fill("<img class='star' src='img/empty star.svg' alt='Empty Star'>"));
 	$(".rating").html(starsArr.join(""));
 	$(".star").css({opacity: 0});
 	$(".star").each(function(index){
