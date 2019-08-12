@@ -103,6 +103,31 @@ function getNearbyTrails(lat, lon, cb) {
 		});
 }
 
+function shortenStateName(state) {
+	var states = {
+		'Alabama': 'AL', 'Alaska': 'AK', 'American Samoa': 'AS', 'Arizona': 'AZ',
+		'Arkansas': 'AR', 'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT',
+		'Delaware': 'DE', 'District Of Columbia': 'DC', 'Federated States Of Micronesia': 'FM',
+		'Florida': 'FL', 'Georgia': 'GA', 'Guam': 'GU', 'Hawaii': 'HI', 'Idaho': 'ID',
+		'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS', 'Kentucky': 'KY',
+		'Louisiana': 'LA', 'Maine': 'ME', 'Marshall Islands': 'MH', 'Maryland': 'MD',
+		'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
+		'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV', 'New Hampshire': 'NH',
+		'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC',
+		'North Dakota': 'ND', 'Northern Mariana Islands': 'MP', 'Ohio': 'OH', 'Oklahoma': 'OK',
+		'Oregon': 'OR', 'Palau': 'PW', 'Pennsylvania': 'PA', 'Puerto Rico': 'PR', 'Rhode Island': 'RI',
+		'South Carolina': 'SC', 'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
+		'Vermont': 'VT', 'Virgin Islands': 'VI', 'Virginia': 'VA', 'Washington': 'WA',
+		'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY'
+	};
+	
+	if( states.hasOwnProperty(state) ) {
+		return states[state];
+	}
+	
+	return state;
+}
+
 // Convert the hikingproject.com search json results to an HTML representation we can display the user
 function trailsJSONToHTML(json) {
 	let trailsHTML = json["trails"].map(function(trail){
@@ -111,14 +136,17 @@ function trailsJSONToHTML(json) {
 		// Neccessary to modify the JSON and put trail distance in as it is also displayed on the trail info page.
 		trail["distFromUser"] = distFromUser;
 		
-		let city = trail.location.split(",")[0];
+		let city = trail.location.split(", ")[0];
+		let region = shortenStateName(trail.location.split(", ").pop());
+		
+		let location = city  + ", " + region;
 		
 		// Set a reasonable max length to prevent crazy long city names stretching views
 		// Ellipsis done in JS because double CSS ellipsis next to each other were causing different visual glitches on different browsers.
 		// Easier to add here:
-		let maxLen = "Philadelphia    ".length;
-		if(city.length > maxLen) {
-			city = city.substring(0, "Philadelphia ".length).trim() + "...";
+		let maxLen = "Philadelphia, PA   ".length;
+		if(location.length > maxLen) {
+			location = city.substring(0, maxLen).trim() + "...";
 		}
 		
 		return (
@@ -128,7 +156,7 @@ function trailsJSONToHTML(json) {
 				<span class="search_dist">${distFromUser} mi</span>
 				/
 				<span class="search_location">
-					${city}
+					${location}
 				</span>
 			</span>
 		</li>`);
