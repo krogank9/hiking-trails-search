@@ -103,6 +103,7 @@ function getNearbyTrails(lat, lon, cb) {
 		});
 }
 
+// Convert long state name ex. "Pennsylvania" -> "PA" to better fit in search results
 function shortenStateName(state) {
 	var states = {
 		'Alabama': 'AL', 'Alaska': 'AK', 'American Samoa': 'AS', 'Arizona': 'AZ',
